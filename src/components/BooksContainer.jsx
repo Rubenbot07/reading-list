@@ -1,25 +1,29 @@
-import { useBooks } from "../hooks/useBooks"
-export function BooksContainer ({ books }) {
-    const {mappedBooks} = useBooks(books)
+import { useContext } from "react"
+import { ReadingListContext } from "../context/ReadingListContext"
 
-    function handleClick () {
+export function BooksContainer () {
+    const {
+        count,
+        handleBooks,
+        booksAvailable
+    } = useContext(ReadingListContext)
 
-        console.log('hola')
-    }
+
     return (
         <ul className='books__container'>
             {
-                mappedBooks.map(book => {
+                booksAvailable.map(book => {
                     return (
                         <li 
                             key={book.id}
                             className='books-item'
-                            onClick={() => handleClick()}
+                            onClick={() => handleBooks(book.title, book.cover, book.id)}
                         >
                             <h3>{book.title}</h3>
                             <picture>
                                 <img src={book.cover} alt={`${book.title} cover`} />
                             </picture>
+                            <p>{count}</p>
                         </li>
                     )
                 })

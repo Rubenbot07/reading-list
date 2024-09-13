@@ -7,19 +7,22 @@ import booksData from '../books.json'
 export const ReadingListContext = createContext()
 
 export const ReadingListProvider = ({ children }) => {
-    const [count, setCount] = useState(0)
-    const {mappedBooks} = useBooks(booksData.library)
     const {bookItem, saveBook} = useStorage('BOOK_LIST', [])
+    const {mappedBooks} = useBooks(booksData.library)
     const [bookList, setBookList] = useState(JSON.parse(localStorage.getItem('BOOK_LIST')))
     const findUniqueBooks = (library, booksToCompare) => {
         const idSet = {};
 
         // Llenar la hash table
-        booksToCompare.forEach(book => {
-          idSet[book.id] = true;
-        });
-        console.log(idSet)
-      
+        if (booksToCompare) {
+            booksToCompare.forEach(book => {
+              idSet[book.id] = true;
+            });
+            console.log(idSet)
+          
+        } else {
+            return mappedBooks
+        }
         // Encontrar los libros únicos
         const uniqueBooks = [];
         library.forEach(book => {
@@ -39,7 +42,7 @@ export const ReadingListProvider = ({ children }) => {
         const filteredBooks = booksAvailable.filter(book => book.id !== bookID)
         setBooksAvailable(filteredBooks)
     }
-    const handleBooks = (bookTitle, bookCover, bookID) => {
+    const addBooks = (bookTitle, bookCover, bookID) => {
         filteredBooks(bookID)
         const newBooks ={
             title: bookTitle,
@@ -50,11 +53,20 @@ export const ReadingListProvider = ({ children }) => {
         saveBook(updatedBooks)
         setBookList(updatedBooks)
     }
+
+    const removeBooks = (bookID) => {
+        const newBooksList = bookList.filter(book => book.id !== bookID)
+        setBookList(newBooksList)
+        localStorage.setItem('BOOK_LIST', JSON.stringify(newBooksList))
+        const booksCompare = JSON.parse(localStorage.getItem('BOOK_LIST'))
+        setBooksAvailable(findUniqueBooks(mappedBooks, booksCompare))
+        console.log(booksAvailable)
+    } 
+
     return (
         <ReadingListContext.Provider value={{
-            count,
-            setCount,
-            handleBooks,
+            addBooks,
+            removeBooks,
             bookList,
             booksAvailable
         }}

@@ -3,18 +3,23 @@ import { ReadingListContext } from "../context/ReadingListContext"
 
 export function BooksList () {
     const {
-        bookList
+        bookList,
+        removeBooks
     } = useContext(ReadingListContext)
     return (
         <section className='books-list__container'>
-            {bookList[0] ? (
+            {bookList ? (
                 bookList?.map(book => {
                     return(
-                        <p
+                        <div
+                          className='list-item__container'
                           key={book.title}
                         >
-                            {book.title}
-                        </p>
+                            <picture>
+                                <img src={book.cover} alt="" />
+                            </picture>
+                            <span className='remove--button' onClick={() => removeBooks(book.id)}>X</span>
+                        </div>
                     )
                 })
             ) : (

@@ -66,7 +66,6 @@ export const ReadingListProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        console.log('render')
         const newBooks = categoryFilter === 'All'
         ? findUniqueBooks(mappedBooks, bookList)
         : booksAvailable.filter(book => book.genre === categoryFilter);

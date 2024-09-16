@@ -3,7 +3,6 @@ import { categories } from "../utils/categories"
 import { ReadingListContext } from "../context/ReadingListContext"
 export function BooksFilter () {
     const {
-        setCategoryFilter,
         handleFilter
     } = useContext(ReadingListContext)
     const filters = ['All', ...categories]

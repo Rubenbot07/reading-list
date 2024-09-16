@@ -3,7 +3,7 @@ export function useBooks (books) {
         id: book.book.ISBN,
         title: book.book.title,
         pages: book.book.pages,
-        genre: book.book.renge,
+        genre: book.book.genre,
         synopsis: book.book.synopsis,
         year: book.book.year,
         cover: book.book.cover,

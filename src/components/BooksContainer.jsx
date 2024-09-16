@@ -8,8 +8,8 @@ export function BooksContainer () {
         handleOpenBookList
     } = useContext(ReadingListContext)
 
-    const handleClick = (bookTitle, bookCover, bookID) => {
-        addBooks(bookTitle, bookCover, bookID)
+    const handleClick = (bookTitle, bookCover, bookID, bookGenre) => {
+        addBooks(bookTitle, bookCover, bookID, bookGenre)
         handleOpenBookList()
     }
 
@@ -21,7 +21,7 @@ export function BooksContainer () {
                         <li 
                             key={book.id}
                             className='books-item'
-                            onClick={() => handleClick(book.title, book.cover, book.id)}
+                            onClick={() => handleClick(book.title, book.cover, book.id, book.genre)}
                         >
                             <h3>{book.title}</h3>
                             <picture>

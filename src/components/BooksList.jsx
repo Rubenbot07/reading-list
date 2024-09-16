@@ -4,10 +4,13 @@ import { ReadingListContext } from "../context/ReadingListContext"
 export function BooksList () {
     const {
         bookList,
-        removeBooks
+        removeBooks,
+        isOpenBookList,
+        handleCloseBookList,
     } = useContext(ReadingListContext)
     return (
-        <section className='books-list__container'>
+        <section className={`${isOpenBookList ? '' : 'inactive'} books-list__container`}>
+            <button className='book-list--close-button' onClick={handleCloseBookList}>X</button>
             {bookList ? (
                 bookList?.map(book => {
                     return(

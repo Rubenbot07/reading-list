@@ -4,9 +4,14 @@ import { ReadingListContext } from "../context/ReadingListContext"
 export function BooksContainer () {
     const {
         addBooks,
-        booksAvailable
+        booksAvailable,
+        handleOpenBookList
     } = useContext(ReadingListContext)
 
+    const handleClick = (bookTitle, bookCover, bookID) => {
+        addBooks(bookTitle, bookCover, bookID)
+        handleOpenBookList()
+    }
 
     return (
         <ul className='books__container'>
@@ -16,7 +21,7 @@ export function BooksContainer () {
                         <li 
                             key={book.id}
                             className='books-item'
-                            onClick={() => addBooks(book.title, book.cover, book.id)}
+                            onClick={() => handleClick(book.title, book.cover, book.id)}
                         >
                             <h3>{book.title}</h3>
                             <picture>

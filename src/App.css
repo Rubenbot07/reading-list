@@ -45,7 +45,8 @@
   right: 0;
   width: 80%;
   height: auto;
-  padding: 15px;
+  padding-block: 50px;
+  padding-inline: 15px;
   max-width: 380px;
   min-width: 200px;
   border: 1px solid gray;
@@ -82,4 +83,27 @@
   background-color: #5554549a;
   top: -135px;
   right: -70px;
+}
+.book-list--close-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid gray;
+  color: gray;
+  border-radius: 100%;
+  right: 5px;
+  top: 5px;
+}
+
+.inactive {
+  display: none;
+}
+
+.book-list--open-button {
+  position: fixed;
+  top: 20px;
+  font-size: 30px;
 }

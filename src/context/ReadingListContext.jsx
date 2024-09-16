@@ -10,6 +10,7 @@ export const ReadingListProvider = ({ children }) => {
     const {bookItem, saveBook} = useStorage('BOOK_LIST', [])
     const {mappedBooks} = useBooks(booksData.library)
     const [bookList, setBookList] = useState(JSON.parse(localStorage.getItem('BOOK_LIST')))
+    const [isOpenBookList, setIsOpenBookList] = useState(true)
     const findUniqueBooks = (library, booksToCompare) => {
         const idSet = {};
 
@@ -63,12 +64,23 @@ export const ReadingListProvider = ({ children }) => {
         console.log(booksAvailable)
     } 
 
+    const handleOpenBookList = () => {
+        setIsOpenBookList(true)
+    }
+
+    const handleCloseBookList = () => {
+        setIsOpenBookList(false)
+    }
+
     return (
         <ReadingListContext.Provider value={{
             addBooks,
             removeBooks,
             bookList,
-            booksAvailable
+            booksAvailable,
+            isOpenBookList,
+            handleOpenBookList,
+            handleCloseBookList
         }}
         >
             {children}

@@ -49,22 +49,30 @@ export const ReadingListProvider = ({ children }) => {
             id: bookID,
             genre: bookGenre
         }
-        const updatedBooks = [...bookItem, newBooks]
+        const updatedBooks = [...bookList, newBooks]
+        console.log(updatedBooks)
         saveBook(updatedBooks)
         setBookList(updatedBooks)
+        console.log(bookList, bookItem)
     }
     const removeBooks = (bookID) => {
         const newBooksList = bookList.filter(book => book.id !== bookID)
         setBookList(newBooksList)
         localStorage.setItem('BOOK_LIST', JSON.stringify(newBooksList))
         const booksCompare = JSON.parse(localStorage.getItem('BOOK_LIST'))
+        console.log(booksCompare)
         setBooksAvailable(findUniqueBooks(mappedBooks, booksCompare))
     } 
     const handleFilter = (item) => {
         setCategoryFilter(item)
         setBooksAvailable(findUniqueBooks(mappedBooks, bookList))
     }
+    const synchronize = () => {
+        const newBookList = JSON.parse(localStorage.getItem('BOOK_LIST')) 
+        setBookList(newBookList)
+        setBooksAvailable(findUniqueBooks(mappedBooks, newBookList))
 
+    }
     useEffect(() => {
         const newBooks = categoryFilter === 'All'
         ? findUniqueBooks(mappedBooks, bookList)
@@ -91,7 +99,8 @@ export const ReadingListProvider = ({ children }) => {
             handleCloseBookList,
             setCategoryFilter,
             categoryFilter,
-            handleFilter
+            handleFilter,
+            synchronize
         }}
         >
             {children}

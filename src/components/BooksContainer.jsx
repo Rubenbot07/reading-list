@@ -1,12 +1,15 @@
 import { useContext } from "react"
 import { ReadingListContext } from "../context/ReadingListContext"
-
+import { useStorageListener } from "../hooks/useStorageListener"
 export function BooksContainer () {
     const {
         addBooks,
         booksAvailable,
-        handleOpenBookList
+        handleOpenBookList,
+        synchronize
     } = useContext(ReadingListContext)
+
+    useStorageListener(synchronize) 
 
     const handleClick = (bookTitle, bookCover, bookID, bookGenre) => {
         addBooks(bookTitle, bookCover, bookID, bookGenre)
